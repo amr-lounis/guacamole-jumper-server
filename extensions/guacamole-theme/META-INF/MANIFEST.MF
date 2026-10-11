@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Name: guacamole-theme
+Specification-Title: guacamole-theme
+Specification-Version: 1.0
+Implementation-Title: guacamole-theme
+Implementation-Version: 1.0
+Created-By: 22.04 (Ubuntu)
+

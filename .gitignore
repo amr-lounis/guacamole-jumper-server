@@ -1,0 +1,16 @@
+# Secrets - never commit real values
+.env
+
+# TLS private key / certs (self-signed dev certs must not be committed)
+nginx/ssl/*.key
+nginx/ssl/*.crt
+
+# Runtime data
+recordings/*
+!recordings/.gitkeep
+postgres_data/
+data/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db

@@ -1,0 +1,540 @@
+/* ============================================
+   JUMPER Guacamole Theme - Enhanced Modern Design
+   ============================================ */
+
+/* === Global Styles & Variables === */
+:root {
+    --primary-color: #023047;
+    --primary-dark: #011d2e;
+    --primary-light: #126782;
+    --accent-color: #219ebc;
+    --accent-hover: #1a8aa6;
+    --success-color: #1a6b5e;
+    --success-hover: #145a4f;
+    --danger-color: #e63946;
+    --danger-dark: #d62828;
+    --bg-light: #f0f4f8;
+    --bg-white: #ffffff;
+    --text-dark: #1a3c5a;
+    --text-muted: #5a7a8a;
+    --border-radius: 8px;
+    --border-radius-lg: 12px;
+    --shadow-sm: 0 2px 4px rgba(2, 48, 71, 0.08);
+    --shadow-md: 0 4px 12px rgba(2, 48, 71, 0.12);
+    --shadow-lg: 0 8px 24px rgba(2, 48, 71, 0.16);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* === Body & Background === */
+body {
+    background-color: var(--bg-light);
+    background-attachment: fixed;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+/* ============================================
+   LOGIN PAGE - Complete Redesign
+   ============================================ */
+
+/* ============================================
+   LOGIN BACKGROUND - Full Page Image
+   ============================================ */
+
+/* Login background with full-page image */
+div.login-ui {
+    background: 
+        linear-gradient(135deg, rgba(2, 48, 71, 0.85) 0%, rgba(18, 103, 130, 0.80) 50%, rgba(33, 158, 188, 0.75) 100%),
+        url('app/ext/guacamole-theme/images/login-bg.jpg') !important;
+    background-size: cover !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Main login dialog */
+.login-ui .login-dialog {
+    background-color: var(--bg-white) !important;
+    max-width: 420px;
+    width: 100%;
+    border: none !important;
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: 2.5em 2em 2em 2em;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-ui .login-dialog::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent-color), var(--success-color));
+}
+
+/* Logo */
+.login-ui .login-dialog .logo {
+    display: block;
+    margin: 0 auto 1.5em;
+    width: 80px;
+    height: 80px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('app/ext/guacamole-theme/images/logo1.png');
+    filter: drop-shadow(0 4px 8px rgba(2, 48, 71, 0.2));
+}
+
+/* App name */
+.login-ui .login-dialog .version .app-name {
+    font-weight: 600;
+    text-transform: none;
+    text-align: center;
+    font-size: 1.4em;
+    color: var(--primary-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    letter-spacing: 1px;
+    margin-bottom: 0.5em;
+}
+
+.login-ui .login-dialog .version {
+    text-align: center;
+    margin-bottom: 1.5em;
+}
+
+/* === Form Inputs === */
+input[name="username"],
+input[name="password"],
+input[name="guac-totp"],
+input[ng-model="searchString"] {
+    background-color: var(--bg-light) !important;
+    border: 2px solid #e0e6ed !important;
+    border-radius: var(--border-radius) !important;
+    padding: 12px 16px !important;
+    font-size: 1em;
+    transition: var(--transition);
+    color: var(--text-dark) !important;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+input[name="username"]:focus,
+input[name="password"]:focus,
+input[name="guac-totp"]:focus,
+input[ng-model="searchString"]:focus {
+    border-color: var(--accent-color) !important;
+    box-shadow: 0 0 0 3px rgba(33, 158, 188, 0.15) !important;
+    outline: none !important;
+    background-color: var(--bg-white) !important;
+}
+
+input::placeholder {
+    color: var(--text-muted) !important;
+}
+
+/* === Login Button === */
+.login-ui .login-dialog .login-fields + div button,
+.login-ui .login-dialog input[type="submit"],
+.login-ui .login-dialog button[type="submit"] {
+    background: linear-gradient(135deg, var(--accent-color), var(--primary-light)) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: var(--border-radius) !important;
+    padding: 14px 24px !important;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: var(--shadow-sm);
+    width: 100%;
+    margin-top: 0.5em;
+}
+
+.login-ui .login-dialog .login-fields + div button:hover,
+.login-ui .login-dialog input[type="submit"]:hover,
+.login-ui .login-dialog button[type="submit"]:hover {
+    background: linear-gradient(135deg, var(--accent-hover), var(--primary-color)) !important;
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+}
+
+/* ============================================
+   SSO / SAML SECTION - Second Option Style
+   ============================================ */
+
+/* Separator between login and SSO */
+.sso-providers {
+    margin-top: 1.5em !important;
+    padding-top: 1.5em !important;
+    border-top: 2px solid #e8ecf1;
+    text-align: center;
+}
+
+/* "Sign in with:" text */
+.sso-providers.ng-binding {
+    color: var(--text-muted);
+    font-size: 0.85em;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.8em;
+    display: block;
+}
+
+/* SSO List */
+.sso-provider-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+/* SAML Button as Secondary Option */
+.sso-provider-saml a {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: var(--bg-white) !important;
+    color: var(--primary-color) !important;
+    border: 2px solid #d0d8e0 !important;
+    border-radius: var(--border-radius) !important;
+    padding: 12px 28px !important;
+    font-size: 0.95em;
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+    min-width: 200px;
+    cursor: pointer;
+    text-transform: none;
+    letter-spacing: 0;
+    width: auto;
+    margin-top: 0;
+}
+
+/* SAML Icon - Shield/Security */
+.sso-provider-saml a::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23023047' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/%3E%3Cpath d='m9 12 2 2 4-4'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    flex-shrink: 0;
+}
+
+.sso-provider-saml a:hover {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light)) !important;
+    color: #ffffff !important;
+    border-color: var(--primary-color) !important;
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.sso-provider-saml a:hover::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/%3E%3Cpath d='m9 12 2 2 4-4'/%3E%3C/svg%3E");
+}
+
+.sso-provider-saml a:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+}
+
+/* ============================================
+   LOGIN ERROR
+   ============================================ */
+.login-ui.error p.login-error {
+    display: block;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 20px;
+    padding: 1em 2em;
+    margin: 0;
+    background: linear-gradient(135deg, var(--danger-color), var(--danger-dark));
+    border: none;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    text-align: center;
+    color: #ffffff;
+    font-weight: 500;
+    z-index: 1000;
+    animation: slideDown 0.4s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
+/* ============================================
+   NAVIGATION HEADER
+   ============================================ */
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 88px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    z-index: 100;
+    width: 100%;
+    box-sizing: border-box;
+    height: 64px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light)) !important;
+    box-shadow: var(--shadow-md);
+}
+
+.navigation a {
+    float: left;
+    color: white;
+    text-align: center;
+    padding: 12px 20px;
+    text-decoration: none;
+    line-height: 25px;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    font-weight: 500;
+}
+
+.navigation a:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+}
+
+/* === Logo in Header === */
+.hlogo {
+    width: 145px;
+    height: 48px;
+    background: transparent url('app/ext/guacamole-theme/images/logo2.png') no-repeat left center / 140px auto;
+    font-size: 0;
+    line-height: 0;
+    transition: var(--transition);
+    filter: brightness(1.1);
+}
+
+.hlogo:hover {
+    filter: brightness(1.3) drop-shadow(0 0 8px rgba(255,255,255,0.3));
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+.header {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light)) !important;
+    color: #ffffff !important;
+    box-shadow: var(--shadow-sm);
+}
+
+/* ============================================
+   PAGE TABS
+   ============================================ */
+.page-tabs .page-list li a[href].current {
+    background: linear-gradient(135deg, var(--success-color), var(--success-hover)) !important;
+    color: #FFFFFF !important;
+    font-weight: 600;
+    box-shadow: var(--shadow-sm);
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+.page-tabs .page-list li a[href] {
+    transition: var(--transition);
+    padding: 10px 20px;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+.page-tabs .page-list li a[href]:hover {
+    background: linear-gradient(135deg, var(--primary-light), var(--accent-color)) !important;
+    color: #FFFFFF !important;
+    transform: translateY(-2px);
+}
+
+/* Main dropdown menu - NOT user-menu */
+
+/* Logout button special styling */
+
+/* ============================================
+   MAIN MENU DROPDOWN (Non-user menu)
+   ============================================ */
+
+/* Main dropdown menu items */
+
+/* Open state for main menu */
+
+/* ============================================
+   LIST ITEMS
+   ============================================ */
+.list-item:not(.selected) .caption {
+    transition: var(--transition);
+    border-radius: var(--border-radius);
+    margin: 2px 0;
+}
+
+.list-item:not(.selected) .caption:hover {
+    background: linear-gradient(135deg, #d4e8e4, #c5e0db) !important;
+    border: solid 1px #a8c9c3 !important;
+    transform: translateX(4px);
+    box-shadow: var(--shadow-sm);
+}
+
+.list-item .name {
+    color: var(--primary-light);
+    font-weight: 500;
+    padding: 0.1em;
+    margin-left: 0.25em;
+    transition: var(--transition);
+}
+
+.list-item:hover .name {
+    color: var(--primary-color);
+}
+
+/* ============================================
+   RECENT CONNECTIONS
+   ============================================ */
+.recent-connections .connection {
+    transition: var(--transition);
+    border-radius: var(--border-radius);
+    padding: 8px;
+}
+
+.recent-connections .connection:hover {
+    background: linear-gradient(135deg, #8ecae6, #6bb3d4) !important;
+    transform: translateX(4px);
+    box-shadow: var(--shadow-sm);
+}
+
+/* ============================================
+   BUTTONS (General)
+   ============================================ */
+a.button, button, input[type=submit] {
+    background-color: var(--accent-color);
+    color: #ffffff;
+}
+
+/* ============================================
+   SCROLLBAR STYLING
+   ============================================ */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-light);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--accent-color), var(--primary-light));
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--primary-light), var(--primary-color));
+}
+
+/* ============================================
+   SELECTION STYLING
+   ============================================ */
+::selection {
+    background: rgba(33, 158, 188, 0.3);
+    color: var(--primary-color);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+    .navigation {
+        padding: 0 20px;
+    }
+
+    .login-ui .login-dialog {
+        margin: 1em;
+        padding: 1.5em;
+    }
+
+    .hlogo {
+        width: 120px;
+        background-size: 115px auto;
+    }
+
+    .sso-provider-saml a {
+        min-width: 160px;
+        padding: 10px 20px !important;
+    }
+}
+
+/* ============================================
+   CARD-LIKE CONTAINERS
+   ============================================ */
+.view, .connection-list, .settings {
+    background: var(--bg-white);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: 1.5em;
+    margin: 1em 0;
+}
+
+/* ============================================
+   TABLE STYLING
+   ============================================ */
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+th {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    color: white;
+    padding: 12px 16px;
+    font-weight: 600;
+    text-align: left;
+}
+
+td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #e0e6ed;
+    transition: var(--transition);
+}
+
+tr:hover td {
+    background: rgba(33, 158, 188, 0.05);
+}
+
+/* ============================================
+   FOCUS STATES
+   ============================================ */
+*:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+    border-radius: 2px;
+}

@@ -1,0 +1,24 @@
+{
+    "guacamoleVersion": "1.6.0",
+    "name": "guacamole-theme",
+    "namespace": "guacamole-theme",
+    "smallIcon": "images/logo-64.png",
+    "largeIcon": "images/logo-144.png",
+    "translations": [
+        "translations/en.json"
+    ],
+    "html": [
+        "html/header.html"
+    ],
+    "js": [],
+    "css": [
+        "css/theme.css"
+    ],
+    "resources": {
+        "images/logo1.png": "image/png",
+        "images/logo2.png": "image/png",
+        "images/logo-64.png": "image/png",
+        "images/logo-144.png": "image/png",
+        "images/login-bg.jpg": "image/jpeg"
+    }
+}

@@ -1,0 +1,96 @@
+services:
+  guacd:
+    container_name: guacd
+    image: guacamole/guacd:1.6.0
+    restart: always
+    networks:
+      - guacamole_network
+    volumes:
+      - ./recordings:/var/lib/guacamole/recordings:rw
+
+  postgres:
+    container_name: postgres
+    image: postgres:16-alpine
+    restart: always
+    networks:
+      - guacamole_network
+    environment:
+      POSTGRES_DB: guacamole_db
+      POSTGRES_USER: guacamole_user
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U guacamole_user -d guacamole_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  guacamole:
+    container_name: guacamole
+    image: guacamole/guacamole:1.6.0
+    restart: always
+    networks:
+      - guacamole_network
+    expose:
+      - "8080"
+    environment:
+      GUACD_HOSTNAME: guacd
+      POSTGRESQL_ENABLED: "true"
+      POSTGRESQL_HOSTNAME: postgres
+      POSTGRESQL_DATABASE: guacamole_db
+      POSTGRESQL_USER: guacamole_user
+      POSTGRESQL_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set}
+
+      # SAML_ENABLED: "true"
+      # SAML_IDP_METADATA_URL: "file:///etc/guacamole/metadata.xml"
+      # SAML_ENTITY_ID: ${SAML_ENTITY_ID}
+      # SAML_CALLBACK_URL: ${SAML_CALLBACK_URL}
+      # SAML_STRICT: "false"  # increase security by enforcing strict SAML processing
+      # EXTENSION_PRIORITY: "*, saml"
+      # SAML_GROUP_ATTRIBUTE: "groups"
+
+      GUACAMOLE_HOME: /etc/guacamole
+      WEBAPP_CONTEXT: /
+
+      REMOTE_IP_VALVE_ENABLED: "true"
+      # NOTE: RECORDING_ENABLED / RECORDING_SEARCH_PATH are NOT supported
+      # as env vars by the guacamole image. Recording is configured
+      # per-connection in the UI/DB (Recording path/name). The volume
+      # below is only for playback of files written by guacd.
+
+    volumes:
+      # Uncomment together with the SAML_* vars above after placing the IdP file at ./saml/metadata.xml
+      # - ./saml/metadata.xml:/etc/guacamole/metadata.xml:ro
+      - ./extensions/guacamole-theme.jar:/etc/guacamole/extensions/guacamole-theme.jar:ro
+      - ./recordings:/var/lib/guacamole/recordings:ro
+    depends_on:
+      guacd:
+        condition: service_started
+      postgres:
+        condition: service_healthy
+
+  nginx:
+    container_name: nginx
+    image: nginx:1.27-alpine
+    restart: always
+    networks:
+      - guacamole_network
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl/:/etc/nginx/ssl/:ro
+    depends_on:
+      guacamole:
+        condition: service_started
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  guacamole_network:
+    driver: bridge
